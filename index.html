@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lien Minh Huyen Thoai 2D</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="library/p5.min.js"></script>
+    <script type="text/javascript" src="library/p5.dom.min.js"></script>
+    <script type="text/javascript" src="library/p5.collide.min.js"></script>
+    <script type="text/javascript" src="library/scenemanager.js"></script>
+    <script type="text/javascript" src="js/variables.js"></script>
+    <script type="text/javascript" src="js/classes/GameMap.js"></script>
+    <script type="text/javascript" src="js/classes/ObjectsInGame.js"></script>
+    <script type="text/javascript" src="js/classes/Abilities.js"></script>
+    <script type="text/javascript" src="js/classes/Effects.js"></script>
+    <script type="text/javascript" src="js/classes/Charaters.js"></script>
+    <script type="text/javascript" src="js/scenes/game.js"></script>
+    <script type="text/javascript" src="js/scenes/loading.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+
+<body>
+    <!-- The overlay -->
+    <div class="overlay" id="menuWhenDie">
+        <div class="menu">
+            <input type="text" id="ip-name" placeholder="Tên của bạn...">
+            <div id="color-picker-wrapper">
+                <input type="color" value="#ff0000" id="pickColor">
+            </div>
+            <!-- Chọn tướng -->
+            <select id="selectNhanVat">
+                <script type="text/javascript">
+                var tuong = ["Yasuo", "Jinx", "Lux", "Blitzcrank", "Yasuo_tt7"];
+                for (var t of tuong) {
+                    document.write(`<option value="` + t + `">` + t + `</option>`)
+                }
+                </script>
+            </select>
+            <!-- URL mode -->
+            <label class="myCheckboxContainer">Chế độ URF
+                <input type="checkbox" id="inpUrf">
+                <span class="checkmark"></span>
+            </label>
+            <!--Play options-->
+            <button id="solo" class="btn-play green">VÁN MỚI</button>
+            <button id="cachchoi" class="btn-play gray">Cách Chơi</button>
+            <div class="guide">
+                <p><b><i>Di chuyển, Né, Tấn công, Kết Liễu</i></b></p>
+                <p>========================</p>
+                <p><b>Di chuyển </b>: Nhấp chuột tại vị trí muốn tới, tướng sẽ tự di chuyển tới vị trí chỉ định</p>
+                <p><b>Tấn công </b>: Phím dùng chiêu Q W E R, ấn giữ để nhắm trước khi dùng chiêu,
+                    nhiều tướng chưa có đủ các chiêu</p>
+                <p><b>Tạm dừng - Tiếp tục </b>: Phím ESC</p>
+                <p>========================</p>
+                <p><b>Hacker</b>: Phím P (tắt/mở). Khi mở sẽ hiện đường đi của các chiêu thức, giúp dễ né hơn</p>
+                <p><b>Câm lặng tất cả</b>: Phím O (tắt/mở). Khi mở thì tướng máy sẽ không tấn công</p>
+                <p><b>Di chuyển tầm nhìn</b>: Phím SPACE (tắt/mở). Khi mở tầm nhìn sẽ không đi theo người chơi nữa. Khi đó có thể đưa chuột ra rìa browser để di chuyển tầm nhìn</p>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+</html>

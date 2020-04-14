@@ -1,0 +1,103 @@
+*{font-family:Consolas,monospace;}
+html {scroll-behavior: smooth;}
+body{background-color:white;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+
+/*========================== Custom check box ============================*/
+/* Customize the label (the container) */
+.myCheckboxContainer {
+	color: #fff;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.myCheckboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.myCheckboxContainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.myCheckboxContainer input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.myCheckboxContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.myCheckboxContainer .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* ========= Curtain Menu ========= */
+.overlay{height:100%;width:100%;position:fixed;z-index:10;left:0;top:0;background:url('objects/bg.png');overflow-x:hidden;-webkit-transition:0.5s;-o-transition:0.5s;transition:0.5s;}
+.menu{position:relative;top:25%;width:320px;height:320px;margin:auto;background-color:rgba(20,20,20,.6);padding:10px;border-radius:8px;overflow-y:auto}
+.menu input[type="text"]{display:inline-block;width:275px;font-size:1.3em;padding:5px 10px;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;border:none;outline:none;border-radius:5px;margin-bottom:10px;}
+.menu input[type="color"]{opacity:0;width:100%;height:100%;border:none;padding:0;}
+.menu input[type="color"]:hover{cursor:pointer;}
+#color-picker-wrapper:hover{border:solid 2px #DDD;}
+#color-picker-wrapper{display:inline-block;margin:auto 0;border:solid 2px #999;border-radius:50%;width:25px;height:25px;}
+.menu select{display:block;color:#eee;width:100%;text-indent:10px;padding:5px 10px;font-size:1.2em;font-weight:bold;border:2px solid #07BC16;border-radius:5px;background-color:transparent;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;margin-bottom:10px;}
+.menu option{background-color:#222;}
+.btn-play{border:none;display:block;width:100%;margin:5px 0;padding:10px 0;font-weight:bold;color:white;font-size:1.1em;border-radius:5px;cursor:pointer;}
+.gr-btn{width:100%;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-ms-flex-wrap:wrap;flex-wrap:wrap;}
+.item{width:48%;}
+.guide{display:none;margin:25px 2px 2px 2px;background-color:#313135;border-radius:5px;}
+.guide p{margin:5px 0 2px 5px;width:100%;color:#999;font-size:1.1em;text-align:left;}
+.guide b{color:#88f;}
+.blue{background-color:#2A6787;}
+.green{background-color:#608d27;}
+.gray{background-color:rgba(60,60,60,.8);}
+.blue:hover{background-color:#4C89A9;}
+.green:hover{background-color:#80af49;}
+.gray:hover{background-color:rgba(70,70,70,1);}
+
+
+/* ========= ScrollBar ============ */
+::-webkit-scrollbar{width:7px;height:7px;}
+::-webkit-scrollbar-track{background:#444;}
+::-webkit-scrollbar-thumb{background:#999;border-radius:5px;}
+::-webkit-scrollbar-thumb:hover{background:#fff;}
