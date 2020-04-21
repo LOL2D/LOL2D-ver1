@@ -23,11 +23,11 @@ class Moveable_Ability_Object {
 
     run() {
         this.move();
-        this.show();
-
         if (hackerMode) {
-            this.showWay();
+            this.showPath();
         }
+
+        this.show();
     }
 
     move() {
@@ -46,8 +46,8 @@ class Moveable_Ability_Object {
         pop(); // trả bút vẽ về vị trí mặc định
     }
 
-    showWay() { //hiển thị đường đi của vật thể (như hack lmht)
-        stroke(this.range - this.travelDistance, 10);
+    showPath() { //hiển thị đường đi của vật thể (như hack lmht)
+        stroke(map(this.range - this.travelDistance, 0, this.range, 255, 50), 50);
         strokeWeight(this.radius * 2);
         line(this.position.x, this.position.y, this.targetMove.x, this.targetMove.y);
         strokeWeight(1);
@@ -91,7 +91,7 @@ class BaoKiem_Yasuo extends Moveable_Ability_Object {
     effect(c) {
         if (this.checkCharacter(c)) {
             if (this.charactersEffected.indexOf(c) < 0) { // nếu chưa có thì mới trừ máu
-                c.loseHealth(this.damage);
+                c.loseHealth(this);
                 c.hatTung(500);
                 this.charactersEffected.push(c); // cho vào mảng để ko bị trừ nữa
             }
@@ -116,7 +116,7 @@ class BoomSieuKhungKhiep_Jinx extends Moveable_Ability_Object {
 
     effect(c) {
         if (this.checkCharacter(c)) {
-            c.loseHealth(this.damage);
+            c.loseHealth(this);
             c.lamCham(.4, 1000);
 
             // hiệu ứng nổ khói
@@ -154,7 +154,7 @@ class SungDien_Jinx extends Moveable_Ability_Object {
 
     effect(c) {
         if (this.checkCharacter(c)) {
-            c.loseHealth(this.damage);
+            c.loseHealth(this);
             c.lamCham(.5, 700);
             c.camLang(1500);
 
@@ -182,7 +182,7 @@ class TroiAnhSanh_Lux extends Moveable_Ability_Object {
     effect(c) {
         if (this.checkCharacter(c)) {
             if (this.charactersEffected.indexOf(c) < 0) { // nếu chưa có thì mới trừ máu
-                c.loseHealth(this.damage);
+                c.loseHealth(this);
                 c.troi(1500); // trói 
                 this.charactersEffected.push(c); // cho vào mảng để ko bị trừ nữa
             }
@@ -214,7 +214,7 @@ class BanTayHoaTien_Blit extends Moveable_Ability_Object {
     effect(c) {
         if (this.checkCharacter(c)) {
             if (this.charactersEffected.length <= 0) { // chỉ kéo được 1 đứa
-                c.loseHealth(this.damage);
+                c.loseHealth(this);
                 c.keo(this);
 
                 this.charactersEffected.push(c);
