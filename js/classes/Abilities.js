@@ -28,8 +28,8 @@ class Ability {
 
     showRange() { // tương tự active() => dùng cho những chiêu tạo ra vật thể Moveable
         // chuyển tọa độ chuột về đúng vị trí theo viewport
-        var convertedMouse = viewport.convert(mouseX, mouseY);
-        var direc = createVector(convertedMouse.x - this.owner.position.x, convertedMouse.y - this.owner.position.y);
+        let convertedMouse = viewport.convert(mouseX, mouseY);
+        let direc = createVector(convertedMouse.x - this.owner.position.x, convertedMouse.y - this.owner.position.y);
         direc.setMag(this.range);
         direc.add(this.owner.position);
 
@@ -58,7 +58,7 @@ class Ability {
 
 class Q_Yasuo extends Ability {
     constructor(_owner) {
-        var data = {
+        let data = {
             damage: 0,
             cooldownTime: 1000,
             range: 600,
@@ -75,7 +75,7 @@ class Q_Yasuo extends Ability {
 
 class W_Jinx extends Ability {
     constructor(_owner) {
-        var data = {
+        let data = {
             damage: 0,
             cooldownTime: 1500,
             range: 1000,
@@ -92,7 +92,7 @@ class W_Jinx extends Ability {
 
 class R_Jinx extends Ability {
     constructor(_owner) {
-        var data = {
+        let data = {
             damage: 0,
             cooldownTime: 2000,
             range: 2000,
@@ -109,7 +109,7 @@ class R_Jinx extends Ability {
 
 class Q_Lux extends Ability {
     constructor(_owner) {
-        var data = {
+        let data = {
             damage: 7,
             cooldownTime: 1000,
             range: 700,
@@ -126,7 +126,7 @@ class Q_Lux extends Ability {
 
 class Q_Blit extends Ability {
     constructor(_owner) {
-        var data = {
+        let data = {
             damage: 5,
             cooldownTime: 1200,
             range: 750,

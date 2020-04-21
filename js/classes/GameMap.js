@@ -12,10 +12,10 @@ class GameMap {
 
     drawEdge() { // Vẽ biên
         // dùng 4 đỉnh đê vẽ hình chữ nhât
-        var topleft = createVector(0, 0); // đỉnh trên trái
-        var topright = createVector(this.width, 0); // đỉnh trên phải
-        var botleft = createVector(0, this.height); // đỉnh dưới trái
-        var botright = createVector(this.width, this.height); // đỉnh dưới phải
+        let topleft = createVector(0, 0); // đỉnh trên trái
+        let topright = createVector(this.width, 0); // đỉnh trên phải
+        let botleft = createVector(0, this.height); // đỉnh dưới trái
+        let botright = createVector(this.width, this.height); // đỉnh dưới phải
 
         stroke(255);
         strokeWeight(3);
@@ -30,9 +30,9 @@ class GameMap {
     drawGrid() {
         stroke(50, 70);
         strokeWeight(3);
-        var delta = 1;
+        let delta = 1;
 
-        for (var x = viewport.position.x - width / 2; x < viewport.position.x + width / 2; x += delta) {
+        for (let x = viewport.position.x - width / 2; x < viewport.position.x + width / 2; x += delta) {
             if (floor(x) % this.gridSize == 0) {
                 /* while you find 1 x%this.gridSize==0 
                 => delta will equal this.gridSize => shorter loop */
@@ -43,7 +43,7 @@ class GameMap {
 
         // do the same thing to y axis
         delta = 1;
-        for (var y = viewport.position.y - height / 2; y < viewport.position.y + height / 2; y += delta) {
+        for (let y = viewport.position.y - height / 2; y < viewport.position.y + height / 2; y += delta) {
             if (floor(y) % this.gridSize == 0) {
                 delta = this.gridSize;
                 line(viewport.position.x - width / 2, y, viewport.position.x + width / 2, y);
@@ -66,8 +66,8 @@ class ViewPort {
     }
 
     convert(_x, _y) {
-        var newX = _x + this.position.x - width * .5;
-        var newY = _y + this.position.y - height * .5;
+        let newX = _x + this.position.x - width * .5;
+        let newY = _y + this.position.y - height * .5;
         return createVector(newX, newY);
     }
 
@@ -80,13 +80,13 @@ class ViewPort {
         } else if (mouseX > width - this.borderSize || mouseX < this.borderSize ||
             mouseY > height - this.borderSize || mouseY < this.borderSize) {
 
-            var vec = createVector(mouseX - width / 2, mouseY - height / 2).setMag(30);
+            let vec = createVector(mouseX - width / 2, mouseY - height / 2).setMag(30);
             this.position.add(vec);
 
             noStroke();
             fill(200, 20);
 
-            var r = this.borderSize;
+            let r = this.borderSize;
             if (mouseY < r) rect(width / 2, r / 2, width, r); // top
             if (mouseY > height - r) rect(width / 2, height - r / 2, width, r); // down
             if (mouseX < r) rect(r / 2, height / 2, this.borderSize, height); // left

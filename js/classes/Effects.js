@@ -64,7 +64,7 @@ class Smoke {
         // show 
         if (this.radius < 100)
             this.radius += random(7) * (30 / (frameRate() + 1));
-        var c = map(this.life - (millis() - this.born), 0, this.life, 30, 255);
+        let c = map(this.life - (millis() - this.born), 0, this.life, 30, 255);
         fill(c, c * 2);
         noStroke();
 

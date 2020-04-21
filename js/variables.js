@@ -1,32 +1,33 @@
-var sceneManager; // biến Scene manager quản lý các scenes của game
+let sceneManager; // biến Scene manager quản lý các scenes của game
 
-var player; // người chơi
+let player; // người chơi
 
-var AI_Players = []; // máy chơi
-var numOfAI; // số lượng máy
-var autoFire = true; // máy tự động bắn
+let AI_Players = []; // máy chơi
+let numOfAI; // số lượng máy
+let autoFire = true; // máy tự động bắn
 
-var urfMode = false;
-var urfValue = 0.4; // phần trăm giảm hồi chiêu trong urf mode
+let urfMode = false;
+let urfValue = 0.4; // phần trăm giảm hồi chiêu trong urf mode
 
-var objects = []; // lưu các vật thể trong game
-var images = {}; // các hình ảnh cần cho game
+let objects = []; // lưu các vật thể trong game
+let images = {}; // các hình ảnh cần cho game
 
-var gamemap; // biến bản đồ
-var viewport; // biến theo dõi - tầm nhìn
+let gamemap; // biến bản đồ
+let viewport; // biến theo dõi - tầm nhìn
 
-var hacked = false; // hiện đường đạn
+let hackerMode = false; // hiện đường đạn
 
 function newGame(config = {}) {
   const {
-    mapW = 2000,
-    mapH = 2000,
+    mapW = 3000,
+    mapH = 3000,
     mapCell = 250,
 
     urf = document.getElementById("inpUrf").checked,
+    hacked = document.getElementById("inpHackMode").checked,
     championName = document.getElementById("selectNhanVat").value,
 
-    aiCount = 4,
+    aiCount = 9,
   } = config;
 
   // map
@@ -36,13 +37,16 @@ function newGame(config = {}) {
   // URF
   urfMode = urf;
 
+  // HackMode
+  hackerMode = hacked;
+
   // player and AI
   player = createCharacter(championName);
   player.name = document.getElementById("ip-name").value || player.name;
 
   AI_Players = [];
   numOfAI = aiCount;
-  for (var i = 0; i < numOfAI; i++) {
+  for (let i = 0; i < numOfAI; i++) {
     AI_Players.push(createCharacter(null, true));
   }
 
@@ -53,8 +57,8 @@ function newGame(config = {}) {
 }
 
 function checkNewGame() {
-  var allDied = true;
-  for (var comp of AI_Players) {
+  let allDied = true;
+  for (let comp of AI_Players) {
     if (!comp.died) {
       allDied = false;
       break;
@@ -70,8 +74,8 @@ function checkNewGame() {
 }
 
 function createCharacter(_name, _isAuto) {
-  var names = ["Yasuo", "Blitzcrank", "Jinx", "Lux"];
-  var randomName = names[floor(random(names.length))];
+  let names = ["Yasuo", "Blitzcrank", "Jinx", "Lux"];
+  let randomName = names[floor(random(names.length))];
 
   if (_name) randomName = _name;
 
@@ -92,9 +96,9 @@ function createCharacter(_name, _isAuto) {
 }
 
 function menuWhenDie(e) {
-  var element = document.getElementById("menuWhenDie");
+  let element = document.getElementById("menuWhenDie");
   if (e == "switch") {
-    var current = element.style.display;
+    let current = element.style.display;
     element.style.display = current == "block" ? "none" : "block";
   } else {
     element.style.display = e == "open" ? "block" : "none";
@@ -110,7 +114,7 @@ function randHex() {
 }
 
 function getUrlVars() {
-  var vars = {};
+  let vars = {};
   window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (
     m,
     key,
@@ -127,8 +131,8 @@ window.onload = function () {
 
   // bộ chọn màu ở menu
   document.getElementById("pickColor").value = randHex();
-  var color_picker = document.getElementById("pickColor");
-  var color_picker_wrapper = document.getElementById("color-picker-wrapper");
+  let color_picker = document.getElementById("pickColor");
+  let color_picker_wrapper = document.getElementById("color-picker-wrapper");
   color_picker.onchange = function () {
     color_picker_wrapper.style.backgroundColor = color_picker.value;
   };
@@ -142,31 +146,35 @@ window.onload = function () {
     newGame(); // ván mới
   });
 
-  // cách chơi
-  document.getElementById("cachchoi").addEventListener("click", (e) => {
-    var guide = document.getElementsByClassName("guide")[0];
-    if (guide.style.display == "") {
-      guide.style.display = "block";
-      document
-        .getElementById("cachchoi")
-        .scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      document
-        .getElementById("ip-name")
-        .scrollIntoView({ behavior: "smooth", block: "end" });
-      setTimeout(() => {
-        guide.style.display = "";
-      }, 200);
-    }
+  ["vn", "en"].forEach((lang) => {
+    // cách chơi
+    const btn = this.document.getElementById("cachchoi-" + lang)
+
+    btn.addEventListener("click", (e) => {
+        let guide = document.getElementById("guide-" + lang);
+        if (guide.style.display == "") {
+          guide.style.display = "block";
+          e.target.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          document
+            .getElementById("ip-name")
+            .scrollIntoView({ behavior: "smooth", block: "end" });
+          setTimeout(() => {
+            guide.style.display = "";
+          }, 200);
+        }
+      });
   });
 
   // config from link
-  const { champion, urf } = getUrlVars();
+  const { champion, urf, hacker } = getUrlVars();
   if (champion) {
     document.getElementById("selectNhanVat").value = champion;
   }
   if (urf) {
-    console.log(urf);
     document.getElementById("inpUrf").checked = urf != "false";
+  }
+  if (hacker) {
+    this.document.getElementById("inpHackMode").checked = hacker != "false";
   }
 };

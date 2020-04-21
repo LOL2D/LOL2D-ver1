@@ -1,6 +1,6 @@
 function Loading() {
 
-    var loadAni;
+    let loadAni;
 
     this.enter = function() {
         // loading animation

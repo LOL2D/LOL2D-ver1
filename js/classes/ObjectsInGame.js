@@ -25,7 +25,7 @@ class Moveable_Ability_Object {
         this.move();
         this.show();
 
-        if (hacked) {
+        if (hackerMode) {
             this.showWay();
         }
     }

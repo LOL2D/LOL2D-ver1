@@ -94,7 +94,7 @@ function Game() {
                     viewport.follow = !viewport.follow;
                     break;
                 case "P":
-                    hacked = !hacked;
+                    hackerMode = !hackerMode;
                     break;
                 case "O":
                     autoFire = !autoFire;

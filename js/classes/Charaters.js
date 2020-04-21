@@ -7,7 +7,7 @@ class Character {
         this.maxHealth = 100;
         this.health = 100; // lượng máu
         this.isEnermy = _isEnemy;
-        this.color = (_isEnemy ? "#f00c" : "#0f0c"); // là kẻ địch thì màu đỏ, ngược lại là xanh
+        this.color = (_isEnemy ? "#f00" : "#0f0"); // là kẻ địch thì màu đỏ, ngược lại là xanh
         this.bgColor = "#0000";
 
         this.speed = _speed; // vận tốc di chuyển
@@ -28,7 +28,7 @@ class Character {
 
     run() { // hàm chạy chính (ở main chỉ gọi hàm này)
         if (!this.died) {
-            if (!this.isEnermy || hacked)
+            if (!this.isEnermy || hackerMode)
                 this.showTargetMove();
             this.move();
             this.collideEdge();
@@ -95,28 +95,39 @@ class Character {
             this.bgColor = "#555a";
             checkNewGame(); // hàm bên functions.js
         }
+
+        if(this.autoMove) {
+            this.getNewRandomTargetMove();
+        }
+    }
+
+    getNewRandomTargetMove() {
+        this.targetMove = null; // xóa dữ liệu tọa độ khi nhân vật đã tới nơi
+
+        if (this.autoMove) {
+            let range = 500;
+            let newX = this.position.x + random(-range, range);
+            let newY = this.position.y + random(-range, range);
+            newX = constrain(newX, this.radius * 4, gamemap.width - this.radius * 4);
+            newY = constrain(newY, this.radius * 4, gamemap.height - this.radius * 4);
+            this.setTargetMove(newX, newY); // test tự động di chuyển
+        }
     }
 
     move() { // hàm di chuyển
         if (this.targetMove && !this.effects.biTroi && !this.effects.biHatTung && !this.effects.biKeo) {
             // khoảng cách so với điểm cần tới
-            var distance = p5.Vector.dist(this.targetMove, this.position);
+            let distance = p5.Vector.dist(this.targetMove, this.position);
             if (distance > max(5, this.speed)) {
                 // tạo vector chỉ theo hướng cần tới
-                var sub = p5.Vector.sub(this.targetMove, this.position);
+                let sub = p5.Vector.sub(this.targetMove, this.position);
                 // thu nhỏ vector trên lại với độ dài = speed (hoặc bị làm chậm)
-                var step = sub.setMag((this.effects.biLamCham ? (this.speed * (1 - this.effects.biLamCham)) : this.speed));
+                let step = sub.setMag((this.effects.biLamCham ? (this.speed * (1 - this.effects.biLamCham)) : this.speed));
                 // di chuyển theo vector sau khi thu nhỏ
                 this.position.add(step);
 
             } else {
-                this.targetMove = null; // xóa dữ liệu tọa độ khi nhân vật đã tới nơi
-
-                if (this.autoMove) {
-                    var x = random(this.radius * 2, gamemap.width - this.radius * 2);
-                    var y = random(this.radius * 2, gamemap.height - this.radius * 2);
-                    this.setTargetMove(x, y); // test tự động di chuyển
-                }
+                this.getNewRandomTargetMove();
             }
 
         } else if (this.effects.biKeo) {
@@ -138,7 +149,7 @@ class Character {
     matMau(value, time) {
         this.effects.biMatMau = value;
 
-        var effects = this.effects;
+        let effects = this.effects;
         setTimeout(function() {
             effects.biMatMau = false;
         }, time);
@@ -154,7 +165,7 @@ class Character {
             clearTimeout(this.effects.indexCamLang);
         }
 
-        var effects = this.effects;
+        let effects = this.effects;
         this.effects.indexCamLang = setTimeout(function() { // setTimeOut .... khá rắc rối
             effects.biCamLang = false;
         }, time);
@@ -170,7 +181,7 @@ class Character {
             clearTimeout(this.effects.indexTroi);
         }
 
-        var effects = this.effects;
+        let effects = this.effects;
         this.effects.indexTroi = setTimeout(function() { // setTimeOut .... khá rắc rối
             effects.biTroi = false;
         }, time);
@@ -186,7 +197,7 @@ class Character {
             clearTimeout(this.effects.indexLamCham);
         }
 
-        var effects = this.effects;
+        let effects = this.effects;
         this.effects.indexLamCham = setTimeout(function() { // setTimeOut .... khá rắc rối
             effects.biLamCham = false;
         }, time);
@@ -206,7 +217,7 @@ class Character {
             this.effects.thoiGianBatDau_HatTung = millis();
         }
 
-        var effects = this.effects;
+        let effects = this.effects;
         this.effects.indexHatTung = setTimeout(function() { // setTimeOut .... khá rắc rối
             effects.biHatTung = false;
         }, time);
@@ -218,7 +229,7 @@ class Character {
 
     // ===================== Các hàm hiển thị ====================
     show() { // hàm hiển thị
-        var radius = this.radius;
+        let radius = this.radius;
 
         // hiển thị hiệu ứng hất tung
         if (this.effects.biHatTung) {
@@ -263,13 +274,13 @@ class Character {
             stroke("#555b");
             strokeWeight(10);
 
-            var x = this.position.x;
-            var y = this.position.y;
-            var r = radius * .7;
+            let x = this.position.x;
+            let y = this.position.y;
+            let r = radius * .7;
 
             if (random(1) > .9) {
-                var x = this.position.x + random(-this.radius, this.radius);
-                var y = this.position.y + random(-this.radius, this.radius);
+                let x = this.position.x + random(-this.radius, this.radius);
+                let y = this.position.y + random(-this.radius, this.radius);
                 objects.push(new Smoke(x, y, random(100, 200), random(10, 30)));
             }
 
@@ -283,12 +294,13 @@ class Character {
             strokeWeight(2);
             stroke("#f00");
             fill("#f00");
+            textSize(20);
             text("- " + floor(this.effects.biMatMau), this.position.x, this.position.y - this.radius * 2.5);
         }
     }
 
     showState() { // hiển thị các hiệu ứng hiện có
-        var info = "";
+        let info = "";
         // bị kéo có tầm quan trọng cao nhất
         // do hiệu ứng kéo sẽ đè lên mọi hiệu ứng khác
         // do đó cần để chuỗi Kéo ở đầu
@@ -316,9 +328,9 @@ class Character {
 
     showHealth() {
         // các giá trị mặc định
-        var healthWidth = 150;
-        var healthHeight = 20;
-        var bgHealth = "#5555";
+        let healthWidth = 150;
+        let healthHeight = 20;
+        let bgHealth = "#5555";
 
         rectMode(CORNER); // chuyển về corner mode cho dễ vẽ
         // vẽ
@@ -358,11 +370,11 @@ class Character {
                 this.targetRadius -= 1.5;
 
             strokeWeight(1);
-            fill(this.color);
+            fill(this.color + "7");
             ellipse(this.targetMove.x, this.targetMove.y, this.targetRadius * 2);
 
-            if (hacked) {
-                stroke(this.color);
+            if (hackerMode) {
+                stroke(this.color + "7");
                 line(this.position.x, this.position.y, this.targetMove.x, this.targetMove.y);
             }
         }
@@ -376,9 +388,9 @@ class Character {
 
     getDirectionMouse_Vector() { // hàm lấy hướng nhìn của nhân vật dạng vector
         // tạo vector tọa độ chuột
-        var mouse = viewport.convert(mouseX, mouseY);
+        let mouse = viewport.convert(mouseX, mouseY);
         // tạo vector chỉ hướng từ nhân vật tới chuột
-        var vecToMouse = p5.Vector.sub(mouse, this.position);
+        let vecToMouse = p5.Vector.sub(mouse, this.position);
         return vecToMouse;
     }
 
@@ -391,9 +403,9 @@ class Character {
 
 class Yasuo extends Character {
     constructor(_name, _x, _y, _isEnemy) {
-        var image = images.yasuo;
-        var radius = 30;
-        var speed = 4;
+        let image = images.yasuo;
+        let radius = 30;
+        let speed = 4;
         super(_name, image, _x, _y, radius, speed, _isEnemy);
 
         this.Qabi = new Q_Yasuo(this);
@@ -405,9 +417,9 @@ class Yasuo extends Character {
 
 class Jinx extends Character {
     constructor(_name, _x, _y, _isEnemy) {
-        var image = images.jinx;
-        var radius = 30;
-        var speed = 4;
+        let image = images.jinx;
+        let radius = 30;
+        let speed = 4;
         super(_name, image, _x, _y, radius, speed, _isEnemy);
 
         this.Qabi = null; //new Q_Yasuo(this);
@@ -419,9 +431,9 @@ class Jinx extends Character {
 
 class Blitzcrank extends Character {
     constructor(_name, _x, _y, _isEnemy) {
-        var image = images.blitzcrank;
-        var radius = 30;
-        var speed = 5;
+        let image = images.blitzcrank;
+        let radius = 30;
+        let speed = 5;
         super(_name, image, _x, _y, radius, speed, _isEnemy);
 
         this.Qabi = new Q_Blit(this);
@@ -433,9 +445,9 @@ class Blitzcrank extends Character {
 
 class Lux extends Character {
     constructor(_name, _x, _y, _isEnemy) {
-        var image = images.lux;
-        var radius = 30;
-        var speed = 4.2;
+        let image = images.lux;
+        let radius = 30;
+        let speed = 4.2;
         super(_name, image, _x, _y, radius, speed, _isEnemy);
 
         this.Qabi = new Q_Lux(this); //new Q_Blit(this);
@@ -447,9 +459,9 @@ class Lux extends Character {
 
 class Yasuo_tt7 extends Character {
     constructor(_name, _x, _y, _isEnemy) {
-        var image = images.yasuo;
-        var radius = 30;
-        var speed = 4.2;
+        let image = images.yasuo;
+        let radius = 30;
+        let speed = 4.2;
         super(_name, image, _x, _y, radius, speed, _isEnemy);
 
         this.Qabi = new Q_Lux(this); 
