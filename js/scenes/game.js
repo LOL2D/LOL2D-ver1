@@ -73,8 +73,8 @@ function Game() {
     showPreviewAbilityWay();
 
     // info nhan vat
-    let pip = viewport.convert(width / 2, height - 90);
-    player.showInfo(pip.x, pip.y, 80);
+    // let pip = viewport.convert(width / 2, height - 90);
+    // player.showInfo(pip.x, pip.y, 80);
 
     // auto play
     for (var a of AI_Players) {
