@@ -389,7 +389,7 @@ class Character {
     textSize(17);
 
     // show health value
-    fill(0, 200);
+    fill("#888");
     text(
       floor(this.health),
       this.position.x,
@@ -418,6 +418,38 @@ class Character {
           this.targetMove.y
         );
       }
+    }
+  }
+
+  showInfo(x, y, d = this.radius * 1.5) {
+
+    if (!this.died) {
+      // stroke('white');
+      noStroke();
+      this.health < 40 ? fill("red") : fill("green");
+      arc(
+        x,
+        y,
+        d + 10,
+        d + 10,
+        ~~map(this.health, 100, 0, 0, 2 * PI) - PI / 2,
+        (3 / 2) * PI,
+        PIE
+      );
+      // arc(x, y, d + 10, d+ 10, radians(-90), PI);
+    }
+
+    image(this.image, x, y, d, d);
+
+    if (this.died) {
+      stroke("#555");
+      strokeWeight(5);
+      let size = d / 3;
+      line(x - size, y - size, x + size, y + size);
+      line(x + size, y - size, x - size, y + size);
+
+      fill("#5559");
+      circle(x, y, d);
     }
   }
 

@@ -14,6 +14,7 @@ let images = {}; // các hình ảnh cần cho game
 
 let gamemap; // biến bản đồ
 let viewport; // biến theo dõi - tầm nhìn
+let beginMatchTime = 0;
 
 let hackerMode = false; // hiện đường đạn
 
@@ -33,6 +34,9 @@ function newGame(config = {}) {
   // map
   gamemap = new GameMap(mapW, mapH, mapCell);
   objects = [];
+
+  // time
+  beginMatchTime = second();
 
   // URF
   urfMode = urf;
