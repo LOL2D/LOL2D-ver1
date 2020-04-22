@@ -255,6 +255,14 @@ class BanTayHoaTien_Blit extends Moveable_Ability_Object {
 class Stable_Ability_Object {
 
 }
-class TuongGio_Yasuo {
 
+class Tree {
+    constructor(x, y, r) {
+        this.position = createVector(x, y);
+        this.radius = r;
+    }
+
+    show() {
+        image(images.tree, this.position.x, this.position.y, this.radius * 2, this.radius * 2);
+    }
 }
