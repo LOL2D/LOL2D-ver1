@@ -95,7 +95,7 @@ class R_Jinx extends Ability {
         let data = {
             damage: 0,
             cooldownTime: 2000,
-            range: 2000,
+            range: 5000,
             radius: 35,
             speed: 12
         }
