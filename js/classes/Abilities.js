@@ -33,7 +33,7 @@ class Ability {
         direc.setMag(this.range);
         direc.add(this.owner.position);
 
-        stroke("#0006");
+        stroke("#9995");
         strokeWeight(this.radius * 2);
         line(this.owner.position.x, this.owner.position.y, direc.x, direc.y);
     }
