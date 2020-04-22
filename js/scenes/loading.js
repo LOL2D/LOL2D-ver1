@@ -10,7 +10,7 @@ function Loading() {
         menuWhenDie("close");
 
         if (!checkImages()) {
-            // objects
+            // chieu thuc
             images.rocket = loadImage('images/rocket2.png');
             images.locxoay = loadImage('images/locXoay.png');
             images.troiAnhSang = loadImage('images/troiAnhSang.png');
@@ -21,6 +21,9 @@ function Loading() {
             images.jinx = loadImage('images/character/jinx.png');
             images.blitzcrank = loadImage('images/character/blitzcrank.png');
             images.lux = loadImage('images/character/lux.png');
+
+            // tree
+            images.tree = loadImage('images/objects/tree.png');
         }
     }
 

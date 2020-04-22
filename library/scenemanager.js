@@ -45,8 +45,8 @@ function SceneManager(p) {
         // o.mouseClicked = function() { me.handleEvent("mouseClicked"); }
         for (var i = 0; i < P5Events.length; i++) {
             let sEvent = P5Events[i]; // let is necesary to set the scope at the level of for
-            o[sEvent] = function() {
-                me.handleEvent(sEvent)
+            o[sEvent] = function(e) {
+                me.handleEvent(sEvent, e)
             };
         }
 
@@ -171,13 +171,13 @@ function SceneManager(p) {
 
     // Handle a certain even for a scene... 
     // It is used by the anonymous functions from the wire() function
-    this.handleEvent = function(sEvent) {
+    this.handleEvent = function(sEvent, e) {
         if (this.scene == null || this.scene.oScene == null)
             return;
 
         var fnSceneEvent = this.scene.oScene[sEvent];
         if (fnSceneEvent)
-            fnSceneEvent.call(this.scene.oScene);
+            fnSceneEvent.call(this.scene.oScene, e);
     }
 
     // Legacy method... preserved for maintaining compatibility

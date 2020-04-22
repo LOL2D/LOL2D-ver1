@@ -15,7 +15,7 @@ function Game() {
     background(20);
 
     // viewport di chuyển tầm nhìn hoạt động :
-    viewport.run();
+    viewport.beginState();
 
     // vẽ bản dồ
     gamemap.run();
@@ -90,24 +90,31 @@ function Game() {
       }
     }
 
+    // trees
+    gamemap.drawObjects();
+
+    viewport.endState();
+
     // show list players
     let x = 30,
-      y = 30;
+      y = 60;
     for (var a of AI_Players) {
-      let pos = viewport.convert(x, y);
-      a.showInfo(pos.x, pos.y, 40);
+      a.showInfo(x, y, 40);
       y += 60;
     }
 
     // Hiện frameRate
     fill(255);
     noStroke();
-    text(round(frameRate()), 15, 15);
+    text("fps: " + round(frameRate()), 40, 15);
 
     // Hiện thời gian sống
-    let pos = viewport.convert(width / 2, 30);
     textSize(20);
-    text(secondsToMinutes(second() - beginMatchTime), pos.x, pos.y);
+    text(
+      secondsToMinutes(~~((millis() - beginMatchTime) / 1000)),
+      width - 50,
+      20
+    );
   };
 
   this.keyReleased = function () {
@@ -151,6 +158,14 @@ function Game() {
             break;
         }
       }
+    }
+  };
+
+  this.mouseWheel = function (event) {
+    if (event.delta > 0) {
+      if (viewport.scaleTo > 0.5) viewport.scaleTo -= viewport.scaleTo / 10;
+    } else {
+      if (viewport.scaleTo < 1) viewport.scaleTo += viewport.scaleTo / 10;
     }
   };
 

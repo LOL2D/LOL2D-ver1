@@ -21,7 +21,7 @@ let hackerMode = false; // hiện đường đạn
 function newGame(config = {}) {
   const {
     mapW = 3000,
-    mapH = 3000,
+    mapH = 4000,
     mapCell = 250,
 
     urf = document.getElementById("inpUrf").checked,
@@ -33,10 +33,11 @@ function newGame(config = {}) {
 
   // map
   gamemap = new GameMap(mapW, mapH, mapCell);
+  gamemap.addRandomObject(Tree, 20);
   objects = [];
 
   // time
-  beginMatchTime = second();
+  beginMatchTime = millis();
 
   // URF
   urfMode = urf;
@@ -46,7 +47,11 @@ function newGame(config = {}) {
 
   // player and AI
   player = createCharacter(championName);
-  player.name = document.getElementById("ip-name").value || player.name;
+
+  let name = document.getElementById("ip-name").value;
+  player.name = name || localStorage.getItem("LOL2D-name") || player.name;
+
+  if (name) localStorage.setItem("LOL2D-name", name);
 
   AI_Players = [];
   numOfAI = aiCount;
@@ -133,6 +138,10 @@ window.onload = function () {
   // cản chuột phải
   document.addEventListener("contextmenu", (e) => e.preventDefault());
 
+  // name
+  let name = localStorage.getItem("LOL2D-name");
+  if (name) document.getElementById("ip-name").value = name;
+
   // bộ chọn màu ở menu
   document.getElementById("pickColor").value = randHex();
   let color_picker = document.getElementById("pickColor");
@@ -152,22 +161,22 @@ window.onload = function () {
 
   ["vn", "en"].forEach((lang) => {
     // cách chơi
-    const btn = this.document.getElementById("cachchoi-" + lang)
+    const btn = this.document.getElementById("cachchoi-" + lang);
 
     btn.addEventListener("click", (e) => {
-        let guide = document.getElementById("guide-" + lang);
-        if (guide.style.display == "") {
-          guide.style.display = "block";
-          e.target.scrollIntoView({ behavior: "smooth", block: "start" });
-        } else {
-          document
-            .getElementById("ip-name")
-            .scrollIntoView({ behavior: "smooth", block: "end" });
-          setTimeout(() => {
-            guide.style.display = "";
-          }, 200);
-        }
-      });
+      let guide = document.getElementById("guide-" + lang);
+      if (guide.style.display == "") {
+        guide.style.display = "block";
+        e.target.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        document
+          .getElementById("ip-name")
+          .scrollIntoView({ behavior: "smooth", block: "end" });
+        setTimeout(() => {
+          guide.style.display = "";
+        }, 200);
+      }
+    });
   });
 
   // config from link

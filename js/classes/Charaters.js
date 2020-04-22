@@ -11,7 +11,7 @@ class Character {
     this.bgColor = "#0000";
 
     this.speed = _speed; // vận tốc di chuyển
-    this.targetMove = createVector(random(width), random(height)); // tọa độ cần tới (khi ấn chuột trên bản đồ)
+    this.targetMove = createVector(_x, _y);// tọa độ cần tới 
     this.targetRadius = 25; // độ lớn khi hiển thị targetMove
     this.died = false; // chết hay chưa :v
 
@@ -100,13 +100,16 @@ class Character {
       this.bgColor = "#555a";
 
       Swal.fire({
-        text: `${this.name} was killed by ${ability.owner.name}`,
+        text: `${ability.owner.name} đã giết ${this.name}`,
 
         toast: true,
         position: "top-end",
         showConfirmButton: false,
         timer: 3000,
       });
+
+      if(player.died) viewport.target = ability.owner;
+
       checkNewGame(); // hàm bên functions.js
     }
 
@@ -288,8 +291,8 @@ class Character {
     if (!this.died) {
       // fill(255);
       stroke(255);
-      strokeWeight(1);
-      line(0, 0, radius, 0); // vẽ hướng
+      strokeWeight(5);
+      line(0, 0, radius + 10, 0); // vẽ hướng
     }
 
     pop(); // trả lại bút vẽ về như cũ
@@ -444,9 +447,6 @@ class Character {
     if (this.died) {
       stroke("#555");
       strokeWeight(5);
-      let size = d / 3;
-      line(x - size, y - size, x + size, y + size);
-      line(x + size, y - size, x - size, y + size);
 
       fill("#5559");
       circle(x, y, d);
