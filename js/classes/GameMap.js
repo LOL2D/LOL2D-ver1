@@ -78,7 +78,7 @@ class ViewPort {
     this.position = _target.position.copy() || createVector(100, 100); // vị trí
     this.follow = true; // theo dõi
     this.scale = 0.1;
-    this.scaleTo = 0.6;
+    this.scaleTo = 0.8;
 
     this.borderSize = 25;
   }
