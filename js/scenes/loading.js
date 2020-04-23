@@ -35,6 +35,10 @@ function Loading() {
 
         } else {
             menuWhenDie('open');
+
+            // play review
+            newGame();
+            viewport.target = AI_Players[~~random(0, AI_Players.length)];
         }
     }
 
