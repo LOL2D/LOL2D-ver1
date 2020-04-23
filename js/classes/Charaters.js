@@ -11,7 +11,7 @@ class Character {
     this.bgColor = "#0000";
 
     this.speed = _speed; // vận tốc di chuyển
-    this.targetMove = createVector(_x, _y);// tọa độ cần tới 
+    this.targetMove = createVector(_x, _y); // tọa độ cần tới
     this.targetRadius = 25; // độ lớn khi hiển thị targetMove
     this.died = false; // chết hay chưa :v
 
@@ -108,7 +108,7 @@ class Character {
         timer: 3000,
       });
 
-      if(player.died) viewport.target = ability.owner;
+      if (viewport.target.died) viewport.target = ability.owner;
 
       checkNewGame(); // hàm bên functions.js
     }
@@ -425,7 +425,6 @@ class Character {
   }
 
   showInfo(x, y, d = this.radius * 1.5) {
-
     if (!this.died) {
       // stroke('white');
       noStroke();
