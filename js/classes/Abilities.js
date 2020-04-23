@@ -131,7 +131,7 @@ class Q_Blit extends Ability {
             cooldownTime: 1200,
             range: 750,
             radius: 25,
-            speed: 11
+            speed: 13
         }
         super(_owner, data);
     }
