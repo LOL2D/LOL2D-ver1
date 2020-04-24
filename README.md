@@ -1,5 +1,7 @@
 # LOL2d - version 1
 
+Version 2 hiện đang được phát triển: [Github Link](https://github.com/HoangTran0410/LOL2D)
+
 ## How to play
 
 Cách chơi tiếng việt có trong menu game
