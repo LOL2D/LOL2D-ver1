@@ -1,8 +1,10 @@
-# LOL2d - version 1
+# [DEPRECATED] LOL2D - version 1
 
-Version 2 hiện đang được phát triển: [Github Link](https://github.com/HoangTran0410/LOL2D)
+Repo này đã làm **từ lâu** và **lỗi thời** :relieved: :grin:
+Sẽ không được tiếp tục phát triển 
+Những kinh nghiệm rút ra được từ repo này đang được áp dụng để **phát triển  Repo mới** [link github](https://github.com/LOL2D/LOL2D_core)  :yum: :heart_eyes:
 
-## Chơi thử ngay tại đây: [Demo Link](https://hoangtran0410.github.io/LOL2D-ver1)
+Hãy follow mình và watch [repo](https://github.com/LOL2D/LOL2D_core) để có thể cập nhật được những feature mới nhất nhé :heartpulse: :star: :boom:
 
 ## GamePlay của trò chơi: [GamePlay](https://www.youtube.com/watch?v=yXC97XTBN7I)
 
